@@ -8,6 +8,7 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.openqa.selenium.phantomjs.PhantomJSDriver;
 import org.openqa.selenium.phantomjs.PhantomJSDriverService;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -57,6 +58,23 @@ public class AppTest
          driver.get("https://google.com");
          System.out.println("Take screenshot of page.");
          takesScreenShot("Check Page Title.");
+         System.out.println("check the page Title");
+         Assert.assertEquals(driver.getTitle(), "Google");
+         System.out.println("Page title = Google");
+         System.out.println("Quit browser");
+      } catch (Exception ex){
+         System.out.println("Do nothing");
+      } finally {
+         driver.quit();
+      }
+   }
+
+   @Test
+   public void openHTMLUnitHeadless(){
+      driver = new HtmlUnitDriver() ;
+      try {
+         System.out.println("Navigate to Google.com using Chrome headless browser");
+         driver.get("https://google.com");
          System.out.println("check the page Title");
          Assert.assertEquals(driver.getTitle(), "Google");
          System.out.println("Page title = Google");
