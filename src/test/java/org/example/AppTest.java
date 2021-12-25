@@ -5,6 +5,9 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.phantomjs.PhantomJSDriver;
+import org.openqa.selenium.phantomjs.PhantomJSDriverService;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -20,6 +23,25 @@ public class AppTest
       op.addArguments("--headless");
       WebDriver driver = new ChromeDriver(op);
       driver.manage().window().maximize();
+      try {
+         System.out.println("Navigate to Google.com using Chrome headless browser");
+         driver.get("https://google.com");
+         System.out.println("check the page Title");
+         Assert.assertEquals(driver.getTitle(), "Google");
+         System.out.println("Page title = Google");
+         System.out.println("Quit browser");
+      } catch (Exception ex){
+         System.out.println("Do nothing");
+      } finally {
+         driver.quit();
+      }
+   }
+
+   @Test
+   public void openPhantomJSHeadless(){
+      DesiredCapabilities cp = new DesiredCapabilities();
+      cp.setCapability(PhantomJSDriverService.PHANTOMJS_EXECUTABLE_PATH_PROPERTY,System.getProperty("user.dir")+"\\phantomjs.exe");
+      WebDriver driver = new PhantomJSDriver(cp);
       try {
          System.out.println("Navigate to Google.com using Chrome headless browser");
          driver.get("https://google.com");
